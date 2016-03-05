@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'post/add/', views.add_post, name="add_post"),
     url(r'comment/add/', views.add_comment, name='add_comment'),
     url(r'post/delete/(?P<post_id>[0-9]+)/$',   views.delete_post, name="delete_post"),
+    # url(r'comment/delete/(?P<comment_id>[0-9]+)/$',   views.delete_comment, name="delete_comment")
 ]

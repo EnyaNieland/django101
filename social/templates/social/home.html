@@ -10,8 +10,8 @@
   <body>
     <div class='container'>
 
+      <!-- New post container -->
       <div class='row'>
-        <!-- New post container -->
         <div class='col-xs-8 col-xs-offset-2'>
           <div class='panel panel-primary' id='new-post'>
             <div class='panel-body'>
@@ -29,9 +29,12 @@
                 </div>
                 <button type='submit' class='btn btn-default'>Post</button>
               </form>
+              <p class='lead'>{{post.text}}</p>
             </div>
+
           </div>
         </div>
+      </div>
 
         <!-- Search box -->
         <div class='col-xs-2'>
@@ -62,6 +65,11 @@
                   {% csrf_token %}
                   <button type='submit'title='delete post' class='glyphicon glyphicon-trash pull-right'></button>
                 </form>
+                {% endif %}
+                {% if post.photo %}
+                <div class='col-xs-10 col-xs-offset-1'>
+                  <img class='img-responsive center-block img-rounded' src={{post.photo.url}}/>
+                </div>
                 {% endif %}
               </h4>
             </div>
