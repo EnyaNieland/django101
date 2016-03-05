@@ -36,19 +36,18 @@ def home(request):
         else:
             return HttpResponseBadRequest(check[1])
     posts = posts.order_by('-date_time')
-    return render(request, 'social/home.html', {'posts': posts, 'user': request.user})
+    return render(request, 'social/home.html', {'posts': posts})
 
 @login_required
 def add_post(request):
-    new_post.poster = request.user
-    if 'photo' in request.FILES and request.FILES['photo'] is not None:
-        new_post.photo = request.FILES['photo']
-    new_post.save()
+
     check = _check_post_request(request, ['text'])
     if check[0]:
         new_post = Post()
         new_post.text = request.POST['text']
         new_post.poster = request.user
+        if 'photo' in request.FILES and request.FILES['photo'] is not None:
+            new_post.photo = request.FILES['photo']
         new_post.save()
         return HttpResponseRedirect(reverse('social:home'))
     else:
