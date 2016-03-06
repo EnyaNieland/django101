@@ -92,11 +92,11 @@ def delete_post(request, post_id):
         post.delete()
         return HttpResponseRedirect(reverse('social:home'))
 
-# @login_required
-# def delete_comment(request, comment_id):
-#     comment = Comment.objects.get(pk=comment_id)
-#     if request.user != comment.poster:
-#         return HttpResponseForbidden("You can only delete your own comments!")
-#     else:
-#         comment.delete()
-#         return HttpResponseRedirect(reverse('social:home'))
+@login_required
+def delete_comment(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    if request.user != comment.poster:
+        return HttpResponseForbidden("You can only delete your own comments!")
+    else:
+        comment.delete()
+        return HttpResponseRedirect(reverse('social:home'))

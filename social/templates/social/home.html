@@ -17,7 +17,7 @@
             <div class='panel-body'>
               <h1> Write a new post </h1>
               <form action="{% url 'social:add_post' %}" method="post" id='new-post-form' enctype='multipart/form-data'>
-              {% csrf_token %}
+                {% csrf_token %}
                 <div class='form-group'>
                   <textarea class='form-control'name='text' form='new-post-form' required placeholder="Write your post here..."></textarea>
                 </div>
@@ -31,10 +31,8 @@
               </form>
               <p class='lead'>{{post.text}}</p>
             </div>
-
           </div>
         </div>
-      </div>
 
         <!-- Search box -->
         <div class='col-xs-2'>
@@ -82,11 +80,17 @@
                   {% for comment in post.comment_set.all %}
                   <li class='list-group-item'>
                     {{comment.text}} - {{comment.poster.username}} ({{comment.date_time}})
+                    {% if comment.poster == user %}
+                    <form action="{% url 'social:delete_comment' comment.id %}" method="post" id="delete-comment">
+                      {% csrf_token %}
+                      <button type="submit" title="delete comment" class="glyphicon glyphicon-trash pull-right"></button>
+                    </form>
+                    {% endif %}
                   </li>
                   {% endfor %}
                 </ul>
                 <form action="{% url 'social:add_comment' %}" method="post">
-                {% csrf_token %}
+                  {% csrf_token %}
                   <div class='form-group'>
                     <input class='form-control' type='text' name='comment' required placeholder="Write your comment here..."/>
                   </div>
